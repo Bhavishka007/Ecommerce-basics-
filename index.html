@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+
+    <style>
+        * {
+            text-align: center;
+        }
+
+        #root {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+        }
+
+        #root>div {
+            margin: 10px;
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        #root>div:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+        }
+
+        img {
+            width: 100%;
+            height: 500px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px 15px;
+            background-color: teal;
+            color: tomato;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: pink;
+            color: green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Welcome to Ecomm Website</h2>
+
+    <input type="text" id="search" placeholder="Search Product Here..." oninput="search()">
+
+    <div id="root">
+        <!-- All Product come here -->
+    </div>
+</body>
+
+</html>
+
+<script>
+    let bag = [];
+    const api = "https://fakestoreapi.com/products";
+
+    // const data = fetch(api)
+    // .then((res) => res.json()
+    // )
+
+    // console.log(data);
+
+    fetch(api)
+        .then((res) => res.json())
+        .then((data) => {
+            bag = data
+            // console.log(data)
+            displayCart(data)
+
+        })
+
+
+    function displayCart(arr) { // [{},{},{}]
+        document.querySelector("#root").innerText = ""
+        arr.forEach((el) => {
+            console.log(el);
+
+            const box = document.createElement("div");
+
+            const image = document.createElement("img");
+            image.setAttribute("src", el.image);
+
+            const title = document.createElement("h3");
+            title.textContent = `Title: ${el.title}`
+
+            const category = document.createElement("h4");
+            category.textContent = `Category: ${el.category}`
+
+            const description = document.createElement("p");
+            description.textContent = `Description: ${el.description}`
+
+            const price = document.createElement("button");
+            price.innerText = `Price: ${el.price}`;
+
+            const rating = document.createElement("button");
+            rating.innerText = `Rating: ${el.rating.rate}`;
+
+            box.append(image, title, category, description, price, rating);
+
+            document.querySelector("#root").append(box)
+        })
+    }
+
+    function search() {
+        console.log(bag);
+
+        const query = document.querySelector("#search").value
+        console.log(query);
+
+        const serachData = bag.filter((el) => {
+            return el.category.toLowerCase().includes(query.toLowerCase())
+        })
+        console.log(serachData);
+
+        displayCart(serachData)
+    }
+</script>

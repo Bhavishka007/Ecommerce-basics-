@@ -1,6 +1,6 @@
 🛒 E-Commerce Product Gallery
 A lightweight, dynamic e-commerce product display page built with Vanilla JavaScript, CSS Grid, and the FakeStore API. 
-This project demonstrates how to fetch external data, handle asynchronous operations, and implement real-time search filtering.
+This project demonstrates how to fetch external data, handle asynchronous operations, and implement real-time search filtering .
 
 🚀 Key Features
 Asynchronous Data Fetching:= Uses the Fetch API to retrieve product data from a RESTful service.
